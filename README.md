@@ -82,10 +82,45 @@ ng generate component auth/components/signup
 ng generate component auth/components/change-password
 ```
 
+Let's create html file that would hold layout for auth when we would call `/auth`. For this we can create a component which would act as root component in auth directory.
+
+```bash
+ng generate component auth/auth --flat
+```
+
+The structure would look something like:
+- auth
+	- login/
+	- signup/
+	- change-password/
+	- auth.component.html
+	- auth.component.css
+	- auth.component.ts
+	- auth.module.ts
+
+In this, we need to load auth component as default component when no other component is selected. First thing we need to include this auth module to root module to use it from root module path. So we need to we need to mention it as import array.
+
+
 ### Root app module components
 ```bash
 ng generate component about-us
 ng generate component how-it-works
+```
+
+### User module components
+```bash
+ng generate component user/add-book
+ng generate component user/delete-book
+ng generate component user/user --flat #for default routing layout
+```
+
+Similarly we can add routing module:
+```bash
+ng generate module user/app-routing --flat #for user's routing
+```
+The shortcut for routing module and angular module would be:
+```bash
+ng generate module user --routing --module=app
 ```
 
 ## Adding Routes for root module
@@ -102,5 +137,24 @@ If we didn't opt for routing feature, we need to create this module using below 
 ```bash
 ng generate module app-routing --flat=true
 ```
+Preference `--flat` is used for not creating directory
 
 > Note: routing module doesn't house components and therefore doesn't need commonModule and declaration array.
+
+The App routing module will declare all components it will use for routing which you can remove from main root module. To use this routing module in other places, you need to export this module i.e. declare in export array.
+
+### Refactoring Routing for application
+
+When we create angular application, we get one module and one routing file. When application growns, thereby number of modules and routes in the application. Managing multiple routes in root routing module file will not be easy. The newly generated and configured routing module file will automatically will be combined when module is imported in root module file. Therefore it is important to create routing module along with default feature module.
+
+To create routing module, we need to specify preference in the command:
+
+```bash
+ng generate module auth --routing --module=app
+```
+
+here `--module` preference in the command is to kow the parent module of this new module.
+
+Now we need to define all the routes in this new routing file as `forChild` as `forRoot` can be used once in the application for root module or root routing. This new routing module then needs to imported in module file this routing module belongs to.
+
+https://www.youtube.com/watch?v=6MbmtxS130E&list=PLaFzfwmPR7_J-FShIRdYuLk0rvzJE0mRf&index=31
