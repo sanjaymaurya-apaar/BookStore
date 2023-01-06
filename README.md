@@ -40,17 +40,17 @@ Book store Application
 
 Structure of Application
 ------------------------
-General (PUblic Section) \
-	- Home Page \
-	- All Books \
-	- Book details \
-User (for logged in users) \
-	- Add Book \
-	- Edit their own Book \
-Admin \
-	- See all users \
-	- Other features \
-Authentication \
-	- Signup \
-	- Login \
+- General (PUblic Section) \
+	- Home Page
+	- All Books
+	- Book details
+- User (for logged in users) \
+	- Add Book
+	- Edit their own Book
+- Admin
+	- See all users
+	- Other features
+- Authentication \
+	- Signup
+	- Login
 
