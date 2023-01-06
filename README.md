@@ -25,3 +25,31 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+# Application Introduction
+
+Book store Application
+----------------------
+	- Multiple Modules
+	- Security
+	- Different Layouts
+	- Bootstrap & Angular Material
+	- Popup/ Model
+	- Form, Directive, Service, Pipe, routing
+
+Structure of Application
+------------------------
+General (PUblic Section)
+	- Home Page
+	- All Books
+	- Book details
+User (for logged in users)
+	- Add Book
+	- Edit their own Book
+Admin
+	- See all users
+	- Other features
+Authentication
+	- Signup
+	- Login
