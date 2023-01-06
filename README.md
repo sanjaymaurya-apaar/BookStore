@@ -53,4 +53,54 @@ Structure of Application
 - Authentication
 	- Signup
 	- Login
+- Shared Model: header/footer
 
+## Generate Modules
+
+```bash
+ng generate module public
+ng generate module auth
+ng generate module user
+ng generate module shared
+```
+
+## Generating components
+
+### Public Module Components
+
+```bash
+ng generate component public/components/home
+ng generate component public/components/all-books
+ng generate component public/components/book-detail
+```
+
+### Auth Module Components
+
+```bash
+ng generate component auth/components/login
+ng generate component auth/components/signup
+ng generate component auth/components/change-password
+```
+
+### Root app module components
+```bash
+ng generate component about-us
+ng generate component how-it-works
+```
+
+## Adding Routes for root module
+
+In root app module, add `routerModule` (with `forRoot`) in import with route path for about-us and how-it-works pages.
+- Add router-outlet tag to root component's html
+
+### Creating Routing module
+
+When we create angular application, angular application asks us whether we want to create routing in the application. If we opt for routing, additional module called `app-routing-module.ts` with no other file is created. This module will house all the routes or paths in our application irrespective of location of other modules or components.
+
+If we didn't opt for routing feature, we need to create this module using below command and add as import in root app module with `forRoot` settings
+
+```bash
+ng generate module app-routing --flat=true
+```
+
+> Note: routing module doesn't house components and therefore doesn't need commonModule and declaration array.
