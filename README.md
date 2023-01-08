@@ -281,5 +281,6 @@ ng generate interface books/models/book
 ng generate interface books/models/price
 ng generate service books/services/book
 ```
+> You can use `providers` array in component, child module or root module to limit the score of service. The value {providedIn:"root"} in `@injectable` indicates the service is available from root module.
 
 Start: 51
