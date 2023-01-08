@@ -257,4 +257,29 @@ const routes: Route[] = [
 	{ path: 'change-password', component: ChangePasswordComponent }
 ];
 ```
+## Services
+
+
+Book service
+
+```ts
+let interface Price = {
+	currency: string,
+	value: number
+}
+let interface Book = {
+	id:number,
+	title: string,
+	totalPages: number,
+	author: string
+	price: Price
+}
+```
+
+```bash
+ng generate interface books/models/book
+ng generate interface books/models/price
+ng generate service books/services/book
+```
+
 Start: 51

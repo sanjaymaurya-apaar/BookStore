@@ -7,16 +7,13 @@ import { UserModule } from './user/user.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     BrowserModule,
-    // AuthModule,
     UserModule,
-    // PublicModule,
     SharedModule,
     AppRoutingModule,
     BrowserAnimationsModule
