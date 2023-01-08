@@ -5,9 +5,12 @@ import { DeleteBookComponent } from './delete-book/delete-book.component';
 import { UserComponent } from './user.component';
 
 const routes: Routes = [
-  { path: 'user', component: UserComponent },
-  { path: 'user/add-book', component: AddBookComponent },
-  { path: 'user/delete-book', component: DeleteBookComponent },
+  {
+    path: 'user', component: UserComponent, children: [
+      { path: 'add-book', component: AddBookComponent },
+      { path: 'delete-book', component: DeleteBookComponent }
+    ]
+  }
 ];
 
 @NgModule({

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-book-detail',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./book-detail.component.scss']
 })
 export class BookDetailComponent {
+
+  constructor(private route:ActivatedRoute){
+  }
 
 }

@@ -157,4 +157,104 @@ here `--module` preference in the command is to kow the parent module of this ne
 
 Now we need to define all the routes in this new routing file as `forChild` as `forRoot` can be used once in the application for root module or root routing. This new routing module then needs to imported in module file this routing module belongs to.
 
-https://www.youtube.com/watch?v=6MbmtxS130E&list=PLaFzfwmPR7_J-FShIRdYuLk0rvzJE0mRf&index=31
+## Router Link
+
+Instead of using href in anchor, we can use `RouterLink` of router which allows pages to be not refreshed and thereby not loading to many resources.
+
+```html
+<a routerLink='public/home'>Simple link and concatenate with `+`</a>
+<a [routerLink]='["public/home", "123123"]'>Pass Parameter from controller</a>
+```
+
+To pass query string, we need to bind an angular attribute `[queryParams]` to an key/value object.
+
+```html
+<a routerLink='public/home' [queryParams]="{name:'hello', last:'world!'}">using queryParams</a>
+<a [routerLink]='["public/home", "123123"]'>Pass Parameter from controller</a>
+```
+
+To access value of parameter, we use `activatedRoute`.
+
+```ts
+constructor(private route:activatedRoute){
+	console.log(this.route.params)
+}
+```
+Now note that if a component's url is built via child route, we need to access route parameters in this child component using `parent` as:
+```ts
+constructor(private route:activatedRoute){
+	console.log(this.route.parent?.params)
+}
+```
+Similarly to get parameter of child route in parent, we need to use `firstChild` instead of `parent`.
+
+> Note: 
+- Case 1: to access parameter in a component which is activated/ instantiated by current route
+	- Use `this.route.params`
+- Case 2: to access parameter in a child component whose parent component is activated/ instantiated by current route
+	- Use `this.route.firstChild?.params`
+- Case 3: to access parameter in a parent component whose child component is activated/ instantiated by current route
+	- Use `this.route.parent?.params`
+
+The query string parameters can be obtained directly using `this.route.queryParams` without need to consider parent or child component.
+
+### navigating from component to component
+When we want to navigate from a component to another component or it's view, we use `Router` class. The Router class provides method `navigate` to navigate between components.
+
+For example, below code will navigate to public component from code written in a component.
+
+
+```ts
+constructor(private router: Router){}
+this.router.navigate(['public/2/book-detail/3']);
+this.router.navigate(['public', 2, 'book-detail', 3]);
+this.router.navigate(['public/2/book-detail/3'], {queryParams:{name:'Hello',last:'world'}});
+```
+
+### Page Not Found
+When path of route is set to `**`, corresponding component get instantiated when no matching routes are found. This route should be placed last in the order. This route then can be used for displaying 404 page.
+
+But when 404 occurs, none of the links work. We get 404 page for all the router links. In such case first remedy is to put routing module to end of all module imported. This should fix the links not working.
+
+Research more: find correct way to fix
+
+### redirectTo
+This redirects to string url and not component. It requires us to mention `pathMatch`. In following example, path is blank, which means if there are no path specified with domain name, angular should redirect to `public/home`.
+
+```json
+{ path: '', redirectTo: 'public/home', pathMatch:'full' }
+```
+If this route is placed to child routes and if no child route is found, we can redirect to parent route in that module.
+
+### Lazy Loading
+There are two ways the modules are loaded in Angular: eagerly and Lazy. When we import all modules in root module, angular will load all the modules when application starts even it is not required to load them all. This is eagerly loaded. Now to load module based on route we visit, remove those module from import in root module and then load when route is activated as below.
+
+```json
+{ 
+	path: 'auth',
+	component: AuthComponent,
+	loadChildren:() => import('./auth/auth.module').then(x=>x.AuthModule)
+}
+```
+
+> Note: the component we specified here will load the component when module is loaded. But if don't specify, Angular will load default component of the application which AppComponent.
+
+Now we need to change below:
+```ts
+const routes: Route[] = [
+	{ path: 'auth', component: AuthComponent, children:[
+		{ path: 'login', component: LoginComponent },
+		{ path: 'signup', component: SignupComponent },
+		{ path: 'change-password', component: ChangePasswordComponent },
+  	] }
+];
+```
+To below where we are just loading children and parent component is loaded by module.
+```ts
+const routes: Route[] = [
+	{ path: 'login', component: LoginComponent },
+	{ path: 'signup', component: SignupComponent },
+	{ path: 'change-password', component: ChangePasswordComponent }
+];
+```
+Start: 51
