@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Book } from '../models/book';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class BookService {
 
   allBooks:Book[] = [
